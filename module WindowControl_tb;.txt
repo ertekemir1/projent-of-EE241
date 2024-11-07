@@ -1,0 +1,69 @@
+module WindowControl_tb;
+
+    
+    reg clk;
+    reg reset;
+    reg [4:0] hour;
+    wire window_state;
+
+    
+    WindowControl uut (
+        .clk(clk),
+        .reset(reset),
+        .hour(hour),
+        .window_state(window_state)
+    );
+
+    
+    always begin
+        #5 clk = ~clk;
+    end
+
+    
+    initial begin
+        
+        clk = 0;
+        reset = 0;
+        hour = 0;
+
+        
+        reset = 1;
+        #10;
+        reset = 0;
+        #10;
+
+        
+        
+        $display("Initial (after reset): hour=%0d, window_state=%0b", hour, window_state);
+
+        
+        hour = 3;   #10;
+        $display("hour=%0d, window_state=%0b", hour, window_state);
+        
+        hour = 23;  #10;
+        $display("hour=%0d, window_state=%0b", hour, window_state);
+
+        
+        hour = 8;   #10;
+        $display("hour=%0d, window_state=%0b", hour, window_state);
+        
+        hour = 12;  #10;
+        $display("hour=%0d, window_state=%0b", hour, window_state);
+        
+        hour = 19;  #10;
+        $display("hour=%0d, window_state=%0b", hour, window_state);
+
+        
+        hour = 20;  #10;
+        $display("hour=%0d, window_state=%0b", hour, window_state);
+
+        
+        reset = 1;  #10;
+        $display("After reset: hour=%0d, window_state=%0b", hour, window_state);
+        reset = 0;  #10;
+
+        
+        $finish;
+    end
+
+endmodule
