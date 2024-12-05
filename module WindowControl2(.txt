@@ -1,0 +1,11 @@
+module WindowControl(
+    input wire clk,
+    input wire reset,
+    input wire [4:0] hour,
+    output wire window_state
+);
+
+    
+    assign window_state = reset ? 1'b0 : (hour >= 8 && hour < 20);
+
+endmodule
