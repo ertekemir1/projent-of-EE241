@@ -1,0 +1,21 @@
+module WindowControl(
+    input wire clk,            
+    input wire reset,          
+    input wire [4:0] hour,     
+    output reg window_state    
+);
+
+    reg [7:0] counter; 
+
+    always @(posedge clk or posedge reset) begin
+        if (reset) begin
+            counter <= 0;
+            window_state <= 0;
+        end 
+        else begin
+            counter <= counter + 1;
+            window_state <= (hour >= 8 && hour < 20);
+        end
+    end
+
+endmodule
